@@ -1,0 +1,30 @@
+{
+  "name": "frontend-nanodegree-neighborhood-map",
+  "version": "1.0.0",
+  "description": "Interactive neighborhood map",
+  "private": true,
+  "main": "index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/milanfort/frontend-nanodegree-neighborhood-map.git"
+  },
+  "bugs": {
+    "url": "https://github.com/milanfort/frontend-nanodegree-neighborhood-map/issues"
+  },
+  "homepage": "https://github.com/milanfort/frontend-nanodegree-neighborhood-map#readme",
+  "keywords": [
+    "map",
+    "neighborhood",
+    "udacity",
+    "front-end",
+    "nanodegree"
+  ],
+  "author": "Milan Fort <http://www.milanfort.com/>",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
