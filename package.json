@@ -24,6 +24,9 @@
   ],
   "author": "Milan Fort <http://www.milanfort.com/>",
   "license": "UNLICENSED",
+  "dependencies": {
+    "jquery": "^2.2.3"
+  },
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.1"
