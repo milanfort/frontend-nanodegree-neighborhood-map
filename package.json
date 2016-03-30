@@ -25,6 +25,7 @@
   "author": "Milan Fort <http://www.milanfort.com/>",
   "license": "UNLICENSED",
   "devDependencies": {
+    "del": "^2.2.0",
     "gulp": "^3.9.1"
   }
 }
