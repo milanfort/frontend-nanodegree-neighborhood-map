@@ -28,6 +28,7 @@
     "jquery": "^2.2.3"
   },
   "devDependencies": {
+    "browser-sync": "^2.12.5",
     "del": "^2.2.0",
     "gulp": "^3.9.1"
   }
