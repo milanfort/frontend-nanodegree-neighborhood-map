@@ -3,6 +3,7 @@ var del = require('del');
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var cleanCss = require('gulp-clean-css');
+var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
 
@@ -32,6 +33,13 @@ gulp.task('js', function () {
         .pipe(browserSync.stream());
 });
 
+gulp.task('images', function () {
+    return gulp.src(source + '/images/**/*')
+        .pipe(imagemin())
+        .pipe(gulp.dest(dest + '/images/'))
+        .pipe(browserSync.stream());
+});
+
 gulp.task('default', function () {
     console.log('Building %s version %s', project.name, project.version);
 
@@ -42,5 +50,6 @@ gulp.task('default', function () {
 
     //gulp.watch(source + '/**/*', browserSync.reload);
     gulp.watch(source + '/css/*.css', ['css']);
+    gulp.watch(source + '/images/**/*', ['images']);
     gulp.watch(source + '/js/**/*.js', ['js']);
 });
