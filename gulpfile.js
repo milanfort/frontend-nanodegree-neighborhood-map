@@ -6,6 +6,9 @@ var cleanCss = require('gulp-clean-css');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
+var browserify = require('browserify');
+var vinylBuffer = require('vinyl-buffer');
+var vinylSource = require('vinyl-source-stream');
 
 var source = 'src';
 var dest = 'dist';
@@ -25,10 +28,15 @@ gulp.task('css', function () {
 });
 
 gulp.task('js', function () {
-    return gulp.src(source + '/js/spa.js')
-        .pipe(sourcemaps.init())
+    return browserify({
+        entries: source +'/js/main.js',
+        debug: true
+        }).bundle()
+        .pipe(vinylSource('bundle.js'))
+        .pipe(vinylBuffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(dest + '/js/'))
         .pipe(browserSync.stream());
 });

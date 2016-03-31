@@ -25,15 +25,19 @@
   "author": "Milan Fort <http://www.milanfort.com/>",
   "license": "UNLICENSED",
   "dependencies": {
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "lodash": "^4.11.1"
   },
   "devDependencies": {
     "browser-sync": "^2.12.5",
+    "browserify": "^13.0.0",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.6",
     "gulp-imagemin": "^2.3.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.3"
+    "gulp-uglify": "^1.5.3",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
