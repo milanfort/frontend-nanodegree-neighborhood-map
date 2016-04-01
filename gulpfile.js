@@ -15,9 +15,11 @@ var vinylBuffer = require('vinyl-buffer');
 var vinylSource = require('vinyl-source-stream');
 var jshint = require('gulp-jshint');
 var a11y = require('gulp-a11y');
+var mocha = require('gulp-mocha');
 var jsdoc = require('gulp-jsdoc3');
 
 var source = 'src';
+var test = 'test';
 var dest = 'dist';
 var docs = 'docs';
 var cssFile = 'main.min.css';
@@ -86,7 +88,12 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('test', ['lint', 'a11y']);
+gulp.task('test', function () {
+    return gulp.src(test + '/*.js')
+        .pipe(mocha());
+});
+
+gulp.task('validate', ['lint', 'a11y', 'test']);
 
 gulp.task('docs', function (cb) {
     var config = require('./jsdoc.json');
