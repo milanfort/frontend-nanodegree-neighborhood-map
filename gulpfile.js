@@ -115,7 +115,7 @@ gulp.task('serve', ['default'], function () {
 
     //gulp.watch(source + '/**/*', browserSync.reload);
     gulp.watch(source + '/css/*.css', ['css']);
-    gulp.watch(source + '/js/**/*.js', ['js']);
+    gulp.watch(source + '/js/**/*.js', ['js', 'lint', 'test']);
     gulp.watch(source + '/images/**/*', ['images']);
-    gulp.watch(source + '/*.html', ['html']);
+    gulp.watch(source + '/*.html', ['html', 'a11y']);
 });
