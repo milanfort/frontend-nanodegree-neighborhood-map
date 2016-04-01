@@ -13,6 +13,7 @@ var browserSync = require('browser-sync').create();
 var browserify = require('browserify');
 var vinylBuffer = require('vinyl-buffer');
 var vinylSource = require('vinyl-source-stream');
+var jsdoc = require('gulp-jsdoc3');
 
 var source = 'src';
 var dest = 'dist';
@@ -69,6 +70,12 @@ gulp.task('html', function () {
         .pipe(htmlclean())
         .pipe(gulp.dest(dest))
         .pipe(browserSync.stream());
+});
+
+gulp.task('docs', function (cb) {
+    var config = require('./jsdoc.json');
+    gulp.src([source + '/js/**/*.js'], {read: false})
+        .pipe(jsdoc(config, cb));
 });
 
 gulp.task('default', ['css', 'js', 'images', 'html'], function () {

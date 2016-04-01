@@ -39,6 +39,7 @@
     "gulp-htmlbuild": "^0.4.1",
     "gulp-htmlclean": "^2.7.6",
     "gulp-imagemin": "^2.3.0",
+    "gulp-jsdoc3": "^0.2.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.3",
     "vinyl-buffer": "^1.0.0",
