@@ -2,6 +2,8 @@
 
 var _ = require('lodash');
 
+var logger = require('./logging').getLogger();
+
 /* Berlin geo-coordinates */
 var CENTER_LOCATION = {lat: 52.5167, lng: 13.4};
 
@@ -24,7 +26,7 @@ var detectBrowser = function () {
 };
 
 var init = function (model, clickHandler) {
-    console.log("Initializing google map");
+    logger.info("Initializing google map");
 
     googleMap = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
@@ -37,7 +39,7 @@ var init = function (model, clickHandler) {
     detectBrowser();
 
     _(model).forEach(function (item) {
-        console.log("Creating marker for item ", item);
+        logger.debug("Creating marker for item %j", item);
 
         var marker = new google.maps.Marker({
             position: item.coords,
@@ -60,12 +62,12 @@ var init = function (model, clickHandler) {
 
 var showMarker = function (title) {
     var marker = markers[title];
-    console.log("Showing marker " + marker.title);
+    logger.debug("Showing marker '%s'", marker.title);
     marker.setMap(googleMap);
 };
 
 var bounce = function (marker) {
-    console.log("Bouncing marker " + marker.title);
+    logger.debug("Bouncing marker '%s'", marker.title);
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
 
@@ -90,7 +92,7 @@ var displayInfoWindow = function (title, message) {
 
 var showAllMarkers = function () {
     _.forEach(markers, function (value, key) {
-        console.log("Showing marker " + key);
+        logger.trace("Showing marker '%s'", key);
 
         value.setMap(googleMap);
     });
@@ -98,7 +100,7 @@ var showAllMarkers = function () {
 
 var hideAllMarkers = function () {
     _.forEach(markers, function (value, key) {
-        console.log("Hiding marker " + key);
+        logger.trace("Hiding marker '%s'", key);
 
         value.setMap(null);
     });

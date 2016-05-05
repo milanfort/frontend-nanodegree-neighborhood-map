@@ -21,7 +21,7 @@ var start = function () {
     view.init();
 
     map.init(model, function (title) {
-        console.log("Clicked " + title);
+        logger.trace("Clicked " + title);
     });
 
     map.showAllMarkers();

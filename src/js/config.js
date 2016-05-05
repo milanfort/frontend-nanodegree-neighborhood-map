@@ -27,5 +27,5 @@ module.exports = Object.freeze({
      * Logging level to use. Only relevant when
      * {@link module:config~DEBUG} is true.
      */
-    LEVEL: 'INFO'
+    LEVEL: 'ALL'
 });
