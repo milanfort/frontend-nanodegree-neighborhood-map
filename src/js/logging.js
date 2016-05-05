@@ -17,10 +17,16 @@
 
 'use strict';
 
-var log4js = require('log4js');
+var log4js = require('log4js'),
+    LOGGING_OFF,
+    LOGGING_ON,
+    init,
+    enable,
+    setLevel,
+    getLogger;
 
 /** Log4js configuration object that disables logging. */
-var LOGGING_OFF = Object.freeze({
+LOGGING_OFF = Object.freeze({
     appenders: [],
     levels: {
         '[all]': 'OFF'
@@ -28,7 +34,7 @@ var LOGGING_OFF = Object.freeze({
 });
 
 /** Log4js configuration object that enables logging. */
-var LOGGING_ON = Object.freeze({
+LOGGING_ON = Object.freeze({
     appenders: [
         {
             type: 'console',
@@ -50,7 +56,7 @@ var LOGGING_ON = Object.freeze({
  * _This method must be called before the first call to
  * {@link module:logging~getLogger} method._
  */
-var init = function () {
+init = function () {
     log4js.configure(LOGGING_OFF);
 };
 
@@ -61,7 +67,7 @@ var init = function () {
  * to explicitly enable it. Should be only used during development/debugging and not
  * called if the code is supposed to be deployed in production.
  */
-var enable = function () {
+enable = function () {
     log4js.configure(LOGGING_ON);
 };
 
@@ -71,7 +77,7 @@ var enable = function () {
  * @param {string} [level=ALL] - The logging level that should
  * be set for the entire application.
  */
-var setLevel = function (level) {
+setLevel = function (level) {
     var logger = log4js.getLogger();
     logger.setLevel(level || 'ALL');
 };
@@ -81,7 +87,7 @@ var setLevel = function (level) {
  *
  * @return {log4js.Logger} The main logger used in the entire application.
  */
-var getLogger = function () {
+getLogger = function () {
     return log4js.getLogger();
 };
 

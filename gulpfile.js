@@ -90,7 +90,14 @@ gulp.task('lint', function () {
 });
 
 gulp.task('style', function () {
-    return gulp.src(srcDir + '/js/**/*.js')
+    var filesToCheck = [
+        srcDir + '/js/config.js',
+        srcDir + '/js/util.js',
+        srcDir + '/js/model.js',
+        srcDir + '/js/logging.js'
+    ];
+
+    return gulp.src(filesToCheck)
         .pipe(jscs())
         .pipe(jscs.reporter());
 });
@@ -100,7 +107,7 @@ gulp.task('test', function () {
         .pipe(mocha());
 });
 
-gulp.task('validate', ['lint', 'a11y', 'test']);
+gulp.task('validate', ['lint', 'style', 'a11y', 'test']);
 
 gulp.task('docs', function (cb) {
     var config = require('./jsdoc.json');
