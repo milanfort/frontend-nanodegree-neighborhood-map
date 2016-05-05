@@ -14,6 +14,7 @@ var browserify = require('browserify');
 var vinylBuffer = require('vinyl-buffer');
 var vinylSource = require('vinyl-source-stream');
 var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
 var a11y = require('gulp-a11y');
 var mocha = require('gulp-mocha');
 var jsdoc = require('gulp-jsdoc3');
@@ -88,6 +89,12 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
+gulp.task('style', function () {
+    return gulp.src(srcDir + '/js/**/*.js')
+        .pipe(jscs())
+        .pipe(jscs.reporter());
+});
+
 gulp.task('test', function () {
     return gulp.src(testDir + '/*.js')
         .pipe(mocha());
@@ -115,7 +122,7 @@ gulp.task('serve', ['default'], function () {
 
     //gulp.watch(srcDir + '/**/*', browserSync.reload);
     gulp.watch(srcDir + '/css/*.css', ['css']);
-    gulp.watch(srcDir + '/js/**/*.js', ['js', 'lint', 'test']);
+    gulp.watch(srcDir + '/js/**/*.js', ['js', 'lint', 'style', 'test']);
     gulp.watch(srcDir + '/images/**/*', ['images']);
     gulp.watch(srcDir + '/*.html', ['html', 'a11y']);
 });

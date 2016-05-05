@@ -41,6 +41,7 @@
     "gulp-htmlbuild": "^0.4.1",
     "gulp-htmlclean": "^2.7.6",
     "gulp-imagemin": "^2.3.0",
+    "gulp-jscs": "^3.0.2",
     "gulp-jsdoc3": "^0.2.1",
     "gulp-jshint": "^2.0.0",
     "gulp-mocha": "^2.2.0",
