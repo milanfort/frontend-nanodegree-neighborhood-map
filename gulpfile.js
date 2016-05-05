@@ -30,7 +30,10 @@ gulp.task('clean', function (done) {
 });
 
 gulp.task('css', function () {
-    return gulp.src(srcDir + '/css/*.css')
+    return gulp.src([
+            "node_modules/bootstrap/dist/css/bootstrap.css",
+            srcDir + '/css/*.css'
+        ])
         .pipe(sourcemaps.init())
         .pipe(prefix({
             browsers: ['last 2 versions', '> 2%'],

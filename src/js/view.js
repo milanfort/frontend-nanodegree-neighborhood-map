@@ -10,7 +10,9 @@
 
 'use strict';
 
-//var $ = require('jquery');
+var $ = require('jquery');
+require('bootstrap');
+
 var logger = require('./logging').getLogger();
 var util = require('./util');
 

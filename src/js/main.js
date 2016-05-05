@@ -1,5 +1,6 @@
 'use strict';
 
+window.$ = window.jQuery = require('jquery');
 var config = require('./config');
 var logging = require('./logging');
 var model = require('./model');

@@ -29,6 +29,7 @@
     "lodash": "^4.11.1"
   },
   "devDependencies": {
+    "bootstrap": "^3.3.6",
     "browser-sync": "^2.12.5",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
