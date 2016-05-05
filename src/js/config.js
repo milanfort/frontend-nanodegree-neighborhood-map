@@ -18,6 +18,8 @@
  * @since 1.0.0
  */
 
+'use strict';
+
 module.exports = Object.freeze({
 
     /** Defines whether logging should be enabled. */

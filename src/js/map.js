@@ -13,6 +13,8 @@ var googleMap = null;
 
 var markers = {};
 
+var bounce;
+
 var detectBrowser = function () {
     var useragent = navigator.userAgent;
     var mapdiv = document.getElementById('map');
@@ -68,7 +70,7 @@ var showMarker = function (title) {
     marker.setMap(googleMap);
 };
 
-var bounce = function (marker) {
+bounce = function (marker) {
     logger.debug("Bouncing marker '%s'", marker.title);
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
