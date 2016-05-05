@@ -1,5 +1,7 @@
 'use strict';
 
+/*global google */
+
 var _ = require('lodash');
 
 var logger = require('./logging').getLogger();
@@ -15,7 +17,7 @@ var detectBrowser = function () {
     var useragent = navigator.userAgent;
     var mapdiv = document.getElementById('map');
 
-    if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1) {
+    if (useragent.indexOf('iPhone') !== -1 || useragent.indexOf('Android') !== -1) {
         mapdiv.style.width = '100%';
         mapdiv.style.height = '100%';
 
@@ -77,7 +79,7 @@ var bounce = function (marker) {
 };
 
 var bounceMarker = function (title) {
-    bounce(markers[title])
+    bounce(markers[title]);
 };
 
 var displayInfoWindow = function (title, message) {

@@ -2,7 +2,6 @@
 
 var config = require('./config');
 var logging = require('./logging');
-var util = require('./util');
 var model = require('./model');
 var view = require('./view');
 var map = require('./map');
