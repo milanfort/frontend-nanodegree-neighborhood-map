@@ -1,3 +1,9 @@
+/*
+ * util.js
+ *
+ * Copyright 2016 Milan Fort (http://www.milanfort.com/). All rights reserved.
+ */
+
 /**
  * This module provides various utility methods.
  *
@@ -9,29 +15,7 @@
 
 'use strict';
 
-var _ = require('lodash');
-
 module.exports = {
-
-    /**
-     * Returns the first number from the provided array of numbers.
-     *
-     * @param x {number[]} array of numbers
-     * @returns {number} the first number from the provided array of numbers.
-     */
-    first: function (x) {
-        return _.first(x);
-    },
-
-    /**
-     * Converts the first letter of the provided string to uppercase.
-     *
-     * @param x {string} a string to capitalize.
-     * @returns {string} a string with the first letter in uppercase.
-     */
-    capitalize: function (x) {
-        return _.capitalize(x);
-    },
 
     /**
      * Returns true iff the first string contains the second string.
