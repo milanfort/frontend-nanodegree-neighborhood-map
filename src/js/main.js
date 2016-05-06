@@ -1,11 +1,12 @@
 'use strict';
 
 window.$ = window.jQuery = require('jquery');
+var ko = require('knockout');
 var config = require('./config');
 var logging = require('./logging');
 var model = require('./model');
 var view = require('./view');
-var map = require('./map');
+var viewModel = require('./viewModel');
 
 var start = function () {
     logging.init();
@@ -20,11 +21,11 @@ var start = function () {
 
     view.init();
 
-    map.init(model, function (title) {
-        logger.trace("Clicked " + title);
-    });
+    ko.applyBindings(viewModel);
+    viewModel.init();
 
-    map.showAllMarkers();
+    //viewModel.select(model[4]);
+    //map.showAllMarkers();
     //map.hideAllMarkers();
     //map.showMarker('TV Tower');
     //map.bounceMarker('TV Tower');

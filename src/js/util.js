@@ -31,5 +31,17 @@ module.exports = {
      */
     capitalize: function (x) {
         return _.capitalize(x);
+    },
+
+    /**
+     * Returns true iff the first string contains the second string.
+     * White space and character case is ignored.
+     *
+     * @param a {string} a string to test if it contains the other string.
+     * @param b {string} a string to test if it is part of the first string.
+     * @returns {boolean} true iff the first string contains the second string.
+     */
+    contains: function (a, b) {
+        return a.trim().toLocaleLowerCase().indexOf(b.trim().toLowerCase()) !== -1;
     }
 };

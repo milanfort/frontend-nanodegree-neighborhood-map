@@ -53,8 +53,6 @@ var init = function (model, clickHandler) {
         });
 
         marker.addListener('click', function() {
-            googleMap.setCenter(marker.getPosition());
-
             bounce(marker);
 
             clickHandler(item.title);

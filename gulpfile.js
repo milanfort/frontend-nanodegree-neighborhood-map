@@ -97,7 +97,8 @@ gulp.task('style', function () {
         srcDir + '/js/config.js',
         srcDir + '/js/util.js',
         srcDir + '/js/model.js',
-        srcDir + '/js/logging.js'
+        srcDir + '/js/logging.js',
+        srcDir + '/js/viewModel.js'
     ];
 
     return gulp.src(filesToCheck)
