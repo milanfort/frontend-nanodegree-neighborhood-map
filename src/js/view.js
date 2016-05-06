@@ -14,7 +14,6 @@ var $ = require('jquery');
 require('bootstrap');
 
 var logger = require('./logging').getLogger();
-var util = require('./util');
 
 var numbers = [5, 4, 3, 2, 1];
 
@@ -27,6 +26,6 @@ var view = module.exports = {
 
     /** Shows the view. */
     show: function () {
-        logger.trace("First number: " + util.first(numbers));
+        logger.trace("Showing view");
     }
 };
