@@ -15,6 +15,7 @@ var ko = require('knockout'),
     init,
     reset,
     select,
+    selectTitle,
     filter,
     viewModel;
 
@@ -25,7 +26,7 @@ init = function () {
 
     map.init(model, function (title) {
         logger.trace("Clicked on marker for '%s'", title);
-        viewModel.selected(title);
+        selectTitle(title);
     });
 
     map.showAllMarkers();
@@ -34,13 +35,20 @@ init = function () {
 reset = function () {
     viewModel.places.removeAll();
     viewModel.selected('');
+    map.closeAllInfoWindows();
     map.hideAllMarkers();
+};
+
+selectTitle = function (title) {
+    logger.debug("Selecting place with title %s", title);
+    viewModel.selected(title);
+    map.bounceMarker(title);
+    map.displayInfoWindow(title, "This is " + title);
 };
 
 select = function (place) {
     logger.debug("Selecting place %j", place);
-    viewModel.selected(place.title);
-    map.bounceMarker(place.title);
+    selectTitle(place.title);
 };
 
 filter = function () {

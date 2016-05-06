@@ -13,6 +13,8 @@ var googleMap = null;
 
 var markers = {};
 
+var infoWindows = [];
+
 var bounce;
 
 var detectBrowser = function () {
@@ -90,6 +92,18 @@ var displayInfoWindow = function (title, message) {
     });
 
     infowindow.open(googleMap, marker);
+    infoWindows.push(infowindow);
+};
+
+var closeAllInfoWindows = function () {
+    logger.trace("Closing all info windows");
+
+    _(infoWindows).forEach(function (infoWindow) {
+        logger.trace("Closing info window %s", infoWindow.getContent());
+        infoWindow.close();
+    });
+
+    infoWindows.length = 0;
 };
 
 var showAllMarkers = function () {
@@ -117,6 +131,8 @@ module.exports = {
     bounceMarker: bounceMarker,
 
     displayInfoWindow: displayInfoWindow,
+
+    closeAllInfoWindows: closeAllInfoWindows,
 
     showAllMarkers: showAllMarkers,
 
