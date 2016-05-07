@@ -54,6 +54,18 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-danger" role="alert" data-bind="visible: error()">
+                <strong>Error: </strong><span data-bind="text: errorMessage()"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row footer">
+        <div class="col-xs-12">
+            This web application uses information from wikipedia.
+        </div>
+    </div>
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_nkhrDT6GrZefEUBUofwRBZJGJBgQMdg"></script>
 <script src="js/bundle.js"></script>

@@ -5,8 +5,8 @@ module.exports = [
         id: 1,
         title: 'Brandenburg Gate',
         coords: {
-            lat: 52.5163,
-            lng: 13.3777
+            lat: 52.516272,
+            lng: 13.377722
         }
     },
     {
@@ -19,7 +19,7 @@ module.exports = [
     },
     {
         id: 3,
-        title: 'TV Tower',
+        title: 'Fernsehturm Berlin',
         coords: {
             lat: 52.5208,
             lng: 13.4094
@@ -27,7 +27,7 @@ module.exports = [
     },
     {
         id: 4,
-        title: 'Jewish Museum',
+        title: 'Jewish Museum, Berlin',
         coords: {
             lat: 52.5023,
             lng: 13.3954
@@ -35,7 +35,7 @@ module.exports = [
     },
     {
         id: 5,
-        title: 'Reichstag Building',
+        title: 'Reichstag building',
         coords: {
             lat: 52.5186,
             lng: 13.3762

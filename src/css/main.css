@@ -11,3 +11,8 @@ html, body {
 .list-group-item {
     text-align: left;
 }
+
+.footer {
+    color: grey;
+    padding-top: 10px;
+}

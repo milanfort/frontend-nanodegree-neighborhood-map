@@ -34,6 +34,8 @@ var detectBrowser = function () {
 var init = function (model, clickHandler) {
     logger.info("Initializing google map");
 
+    //TODO: test if google is defined; display error message if not
+
     googleMap = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: CENTER_LOCATION,
@@ -57,7 +59,7 @@ var init = function (model, clickHandler) {
         marker.addListener('click', function() {
             bounce(marker);
 
-            clickHandler(item.title);
+            clickHandler(item);
         });
 
         markers[item.title] = marker;

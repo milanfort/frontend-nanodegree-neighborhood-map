@@ -29,4 +29,16 @@ describe('Util Tests', function () {
             expect(result).to.equal(true);
         });
     });
+
+    describe('uriEncodeCoords', function () {
+        it('should properly encode coordinates as string', function () {
+            var coords = {
+                lat: 52.5163,
+                lng: 13.3777
+            };
+
+            var result = util.uriEncodeCoords(coords);
+            expect(result).to.equal('52.5163%7C13.3777');
+        });
+    });
 });

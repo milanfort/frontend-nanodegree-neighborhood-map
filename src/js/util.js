@@ -27,5 +27,24 @@ module.exports = {
      */
     contains: function (a, b) {
         return a.trim().toLocaleLowerCase().indexOf(b.trim().toLowerCase()) !== -1;
+    },
+
+    /**
+     * Returns a string encoding of provided geo location coordinates
+     * suitable to be part of a uri string.
+     *
+     * @example
+     * Input:
+     * coords: {
+     *   lat: 52.5163,
+     *   lng: 13.3777
+     * }
+     * Output: 52.5163%7C13.3777
+     *
+     * @param coords {Object} input object with geo location coordinates.
+     * @returns {string} uri encoded coordinates string.
+     */
+    uriEncodeCoords: function (coords) {
+        return encodeURIComponent(coords.lat + '|' + coords.lng);
     }
 };
