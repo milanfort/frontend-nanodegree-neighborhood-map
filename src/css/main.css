@@ -24,3 +24,10 @@ html, body {
 .no-margin {
     margin: 0;
 }
+
+@media screen and (max-width: 991px) {
+
+    .filter-button-text {
+        display: none;
+    }
+}
