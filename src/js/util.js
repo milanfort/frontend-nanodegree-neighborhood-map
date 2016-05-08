@@ -8,6 +8,8 @@
  * This module provides various utility methods.
  *
  * @module util
+ * @type {{contains, uriEncodeCoords}}
+ *
  * @author Milan Fort (http://www.milanfort.com/)
  * @version 1.0
  * @since 1.0.0

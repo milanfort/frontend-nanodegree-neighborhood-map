@@ -1,14 +1,29 @@
+/*
+ * main.js
+ *
+ * Copyright 2016 Milan Fort (http://www.milanfort.com/). All rights reserved.
+ */
+
+/**
+ * This module is the entry point into the entire application.
+ *
+ * @module main
+ * @author Milan Fort (http://www.milanfort.com/)
+ * @version 1.0
+ * @since 1.0.0
+ */
+
 'use strict';
 
-window.$ = window.jQuery = require('jquery');
-var ko = require('knockout');
-var config = require('./config');
-var logging = require('./logging');
-var model = require('./model');
-var view = require('./view');
-var viewModel = require('./viewModel');
+var $ = window.jQuery = require('jquery'),
+    ko = require('knockout'),
+    config = require('./config'),
+    logging = require('./logging'),
+    viewModel = require('./viewModel');
 
-var start = function () {
+(function () {
+    var logger;
+
     logging.init();
 
     if (config.DEBUG) {
@@ -16,20 +31,9 @@ var start = function () {
         logging.setLevel(config.LEVEL);
     }
 
-    var logger = logging.getLogger();
-    logger.info("Starting application");
-
-    view.init();
+    logger = logging.getLogger();
+    logger.info("Starting application; using jQuery v%s", $().jquery);
 
     ko.applyBindings(viewModel);
     viewModel.init();
-
-    //viewModel.select(model[4]);
-    //map.showAllMarkers();
-    //map.hideAllMarkers();
-    //map.showMarker('TV Tower');
-    //map.bounceMarker('TV Tower');
-    //map.displayInfoWindow('TV Tower', 'Hello there!');
-};
-
-start();
+}());

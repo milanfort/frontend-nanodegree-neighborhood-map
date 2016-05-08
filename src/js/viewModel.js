@@ -4,12 +4,29 @@
  * Copyright 2016 Milan Fort (http://www.milanfort.com/). All rights reserved.
  */
 
-//TODO: provide attribution about using information from wikipedia with license.
+/**
+ * This module implements the application functionality using the knockout.js framework.
+ * It represents the ViewModel part of the Model-View-ViewModel (MVVM) architectural pattern.
+ *
+ * As part of its implementation, this module accesses free content from
+ * {@link https://en.wikipedia.org/wiki/Main_Page|Wikipedia},
+ * in compliance with its
+ * {@link https://wikimediafoundation.org/wiki/Terms_of_Use|terms of use}.
+ *
+ * @module viewModel
+ * @type {{places, selected, filterText, error, errorMessage, init, select, filter}}
+ *
+ * @author Milan Fort (http://www.milanfort.com/)
+ * @version 1.0
+ * @see module:util
+ * @since 1.0.0
+ */
 
 'use strict';
 
 var ko = require('knockout'),
     _ = require('lodash'),
+    $ = require('jquery'),
     model = Object.freeze(require('./model')),
     logger = require('./logging').getLogger(),
     util = require('./util'),
@@ -20,19 +37,30 @@ var ko = require('knockout'),
     filter,
     viewModel;
 
+require('bootstrap');
+
+/** Initializes this module. */
 init = function () {
     _(model).forEach(function (value) {
         viewModel.places.push(value);
     });
 
-    map.init(model, function (place) {
-        logger.trace("Clicked on marker for '%s'", place.title);
-        select(place);
-    });
+    try {
+        map.init(model, function (place) {
+            logger.trace("Clicked on marker for '%s'", place.title);
+            select(place);
+        });
+        map.showAllMarkers();
 
-    map.showAllMarkers();
+        viewModel.error(false);
+
+    } catch (error) {
+        viewModel.error(true);
+        viewModel.errorMessage(error.message);
+    }
 };
 
+/** Resets the application state. */
 reset = function () {
     viewModel.places.removeAll();
     viewModel.selected('');
@@ -40,6 +68,14 @@ reset = function () {
     map.hideAllMarkers();
 };
 
+/**
+ * Selects a place on the map, highlights it in the list,
+ * retrieves the information about the place from wikipedia,
+ * and displays it in an info window.
+ *
+ * @param {{id, title, coords}} place - a place from model to select.
+ * @see module:model
+ */
 select = function (place) {
     var WIKIPEDIA_URL =
         "http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=true&exsentences=2&titles=";
@@ -75,6 +111,12 @@ select = function (place) {
     });
 };
 
+/**
+ * Filters the list of places according to the filter text specified in the input field.
+ * Filtering is case-insensitive and ignores any leading or trailing spaces.
+ *
+ * @returns {boolean} _false_ in order to prevent the default functionality of submit button.
+ */
 filter = function () {
     var text = viewModel.filterText();
 

@@ -1,26 +1,50 @@
+/*
+ * map.js
+ *
+ * Copyright 2016 Milan Fort (http://www.milanfort.com/). All rights reserved.
+ */
+
+/**
+ * This module implements map-related functionality.
+ * It allows to display a map, show and hide place markers,
+ * as well as display additional information in info windows.
+ *
+ * Please note that the map data are copyrighted by Google and its data providers.
+ *
+ * @module map
+ * @type {{init, showMarker, bounceMarker, displayInfoWindow, closeAllInfoWindows,
+ *         showAllMarkers, hideAllMarkers}}
+ * @author Milan Fort (http://www.milanfort.com/)
+ * @version 1.0
+ * @since 1.0.0
+ */
+
 'use strict';
 
 /*global google */
 
-var _ = require('lodash');
+var _ = require('lodash'),
+    logger = require('./logging').getLogger(),
+    CENTER_LOCATION = {lat: 52.5167, lng: 13.4}, // Berlin geo-coordinates
+    googleMap = null,
+        markers = {},
+    infoWindows = [],
+    init,
+    showMarker,
+    bounceMarker,
+    bounce,
+    displayInfoWindow,
+    closeAllInfoWindows,
+    showAllMarkers,
+    hideAllMarkers;
 
-var logger = require('./logging').getLogger();
-
-/* Berlin geo-coordinates */
-var CENTER_LOCATION = {lat: 52.5167, lng: 13.4};
-
-var googleMap = null;
-
-var markers = {};
-
-var infoWindows = [];
-
-var bounce;
-
-var init = function (model, clickHandler) {
+/** Initializes this map module. */
+init = function (model, clickHandler) {
     logger.info("Initializing google map");
 
-    //TODO: test if google is defined; display error message if not
+    if (typeof google === 'undefined') {
+        throw new Error('Google Maps are not available');
+    }
 
     googleMap = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
@@ -31,18 +55,19 @@ var init = function (model, clickHandler) {
     });
 
     _(model).forEach(function (item) {
+        var marker;
+
         logger.debug("Creating marker for item %j", item);
 
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: item.coords,
             draggable: false,
             animation: google.maps.Animation.DROP,
             title: item.title
         });
 
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
             bounce(marker);
-
             clickHandler(item);
         });
 
@@ -50,38 +75,61 @@ var init = function (model, clickHandler) {
     });
 };
 
-var showMarker = function (title) {
+/**
+ * Shows a marker on the map for the place with the given title.
+ *
+ * @param {string} title - Title of the place for which marker should be shown.
+ */
+showMarker = function (title) {
     var marker = markers[title];
     logger.debug("Showing marker '%s'", marker.title);
     marker.setMap(googleMap);
 };
 
+/**
+ * Animates the provided marker using bounce animation.
+ *
+ * @param {google.maps.Marker} marker - Marker to bounce.
+ */
 bounce = function (marker) {
     logger.debug("Bouncing marker '%s'", marker.title);
 
     marker.setAnimation(google.maps.Animation.BOUNCE);
 
-    setTimeout(function() {
+    setTimeout(function () {
         marker.setAnimation(null);
     }, 700);
 };
 
-var bounceMarker = function (title) {
+/**
+ * Animates the marker corresponding to the place with the provided title.
+ *
+ * @param {string} title - Title of place for which the marker should bounce.
+ */
+bounceMarker = function (title) {
     bounce(markers[title]);
 };
 
-var displayInfoWindow = function (title, message) {
-    var marker = markers[title];
+/**
+ * Opens an info window for the given place with the given message.
+ *
+ * @param {string} title - Title of place for which an info window should be displayed.
+ * @param {string} message - Message to display in the info window.
+ */
+displayInfoWindow = function (title, message) {
+    var marker = markers[title],
+        infoWindow;
 
-    var infowindow = new google.maps.InfoWindow({
+    infoWindow = new google.maps.InfoWindow({
         content: message
     });
 
-    infowindow.open(googleMap, marker);
-    infoWindows.push(infowindow);
+    infoWindow.open(googleMap, marker);
+    infoWindows.push(infoWindow);
 };
 
-var closeAllInfoWindows = function () {
+/** Closes all info windows. */
+closeAllInfoWindows = function () {
     logger.trace("Closing all info windows");
 
     _(infoWindows).forEach(function (infoWindow) {
@@ -92,7 +140,8 @@ var closeAllInfoWindows = function () {
     infoWindows.length = 0;
 };
 
-var showAllMarkers = function () {
+/** Shows markers for all places defined in applications data model. */
+showAllMarkers = function () {
     _.forEach(markers, function (value, key) {
         logger.trace("Showing marker '%s'", key);
 
@@ -100,7 +149,8 @@ var showAllMarkers = function () {
     });
 };
 
-var hideAllMarkers = function () {
+/** Hides all markers currentlly shown on the map. */
+hideAllMarkers = function () {
     _.forEach(markers, function (value, key) {
         logger.trace("Hiding marker '%s'", key);
 

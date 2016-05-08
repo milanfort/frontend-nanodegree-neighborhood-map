@@ -1,3 +1,20 @@
+/*
+ * model.js
+ *
+ * Copyright 2016 Milan Fort (http://www.milanfort.com/). All rights reserved.
+ */
+
+/**
+ * This module provides a static data model used by the application.
+ *
+ * @module model
+ * @type {Object[]}
+ *
+ * @author Milan Fort (http://www.milanfort.com/)
+ * @version 1.0
+ * @since 1.0.0
+ */
+
 'use strict';
 
 module.exports = [

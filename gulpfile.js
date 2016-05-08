@@ -99,15 +99,7 @@ gulp.task('lint', function () {
 });
 
 gulp.task('style', function () {
-    var filesToCheck = [
-        srcDir + '/js/config.js',
-        srcDir + '/js/util.js',
-        srcDir + '/js/model.js',
-        srcDir + '/js/logging.js',
-        srcDir + '/js/viewModel.js'
-    ];
-
-    return gulp.src(filesToCheck)
+    return gulp.src(srcDir + '/js/**/*.js')
         .pipe(jscs())
         .pipe(jscs.reporter());
 });
