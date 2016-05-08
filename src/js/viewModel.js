@@ -60,11 +60,10 @@ select = function (place) {
         timeout: 500
 
     }).done(function (data) {
+        var infoText = _.values(data.query.pages)[0].extract;
         logger.debug("Wikipedia information for entry '%s' retrieved successfully", place.title);
         viewModel.error(false);
         viewModel.errorMessage('');
-
-        var infoText = _.values(data.query.pages)[0].extract;
         map.closeAllInfoWindows();
         map.displayInfoWindow(place.title, infoText);
 

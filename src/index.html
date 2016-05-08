@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neighborhood Map</title>
 
     <!-- htmlbuild:css -->
@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h1>Neighborhood Map</h1>
+            <h1>Berlin Sightseeing</h1>
         </div>
     </div>
     <div class="row">
@@ -26,30 +26,28 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <form data-bind="submit: filter">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="searchField"
-                           placeholder="Search for places..." autocomplete="off"
-                           data-bind="value: filterText">
+            <form class="form" data-bind="submit: filter">
+                <div class="row">
+                    <div class="col-xs-9">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="searchField"
+                                   placeholder="Filter places..." autocomplete="off"
+                                   data-bind="value: filterText">
+                        </div>
+                    </div>
+                    <div class="col-xs-3 no-left-padding">
+                        <button type="submit" class="btn btn-default btn-block">
+                            <span class="glyphicon glyphicon-filter"></span>
+                            Filter
+                        </button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-default">Search</button>
             </form>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-6">
-            <div class="list-group" data-bind="foreach: places">
-                <a href="#" class="list-group-item"
-                   data-bind="text: title,
-                   css: { active: $data.title == $root.selected()},
-                   click: $root.select">
-                </a>
-            </div>
-
-            Applying filter: '<span data-bind="text: filterText"></span>'
-        </div>
-        <div class="col-xs-6">
-            <div class="col-xs-6">
+        <div class="col-xs-12">
+            <div id="mapDiv">
                 <div id="map"></div>
             </div>
         </div>
@@ -57,13 +55,29 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="alert alert-danger" role="alert" data-bind="visible: error()">
-                <strong>Error: </strong><span data-bind="text: errorMessage()"></span>
+                <strong>Error:</strong>&nbsp;<span data-bind="text: errorMessage()"></span>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="list-group" data-bind="foreach: places">
+                <a href="#" class="list-group-item"
+                   data-bind="text: title,
+                   css: { active: $data.title == $root.selected()},
+                   click: $root.select">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <hr class="no-margin">
         </div>
     </div>
     <div class="row footer">
         <div class="col-xs-12">
-            This web application uses information from wikipedia.
+            Disclaimer: This web application uses information from wikipedia.
         </div>
     </div>
 </div>

@@ -26,6 +26,8 @@ module.exports = {
      * @returns {boolean} true iff the first string contains the second string.
      */
     contains: function (a, b) {
+        a = a || '';
+        b = b || '';
         return a.trim().toLocaleLowerCase().indexOf(b.trim().toLowerCase()) !== -1;
     },
 

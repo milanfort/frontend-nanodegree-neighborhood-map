@@ -31,7 +31,7 @@ gulp.task('clean', function (done) {
 
 gulp.task('css', function () {
     return gulp.src([
-            "node_modules/bootstrap/dist/css/bootstrap.css",
+            'node_modules/bootstrap/dist/css/bootstrap.css',
             srcDir + '/css/*.css'
         ])
         .pipe(sourcemaps.init())
@@ -64,6 +64,12 @@ gulp.task('images', function () {
     return gulp.src(srcDir + '/images/**/*')
         .pipe(imagemin())
         .pipe(gulp.dest(destDir + '/images/'))
+        .pipe(browserSync.stream());
+});
+
+gulp.task('fonts', function () {
+    return gulp.src('node_modules/bootstrap/dist/fonts/*')
+        .pipe(gulp.dest(destDir + '/fonts/'))
         .pipe(browserSync.stream());
 });
 
@@ -119,7 +125,7 @@ gulp.task('docs', function (cb) {
         .pipe(jsdoc(config, cb));
 });
 
-gulp.task('default', ['css', 'js', 'images', 'html'], function () {
+gulp.task('default', ['css', 'js', 'images', 'fonts', 'html'], function () {
     console.log('Building %s version %s', project.name, project.version);
 });
 

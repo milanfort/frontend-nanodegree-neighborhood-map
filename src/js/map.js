@@ -17,20 +17,6 @@ var infoWindows = [];
 
 var bounce;
 
-var detectBrowser = function () {
-    var useragent = navigator.userAgent;
-    var mapdiv = document.getElementById('map');
-
-    if (useragent.indexOf('iPhone') !== -1 || useragent.indexOf('Android') !== -1) {
-        mapdiv.style.width = '100%';
-        mapdiv.style.height = '100%';
-
-    } else {
-        mapdiv.style.width = '600px';
-        mapdiv.style.height = '800px';
-    }
-};
-
 var init = function (model, clickHandler) {
     logger.info("Initializing google map");
 
@@ -43,8 +29,6 @@ var init = function (model, clickHandler) {
         zoomControl: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
-    detectBrowser();
 
     _(model).forEach(function (item) {
         logger.debug("Creating marker for item %j", item);
