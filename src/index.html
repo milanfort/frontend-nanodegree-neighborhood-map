@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col-xs-10 col-sm-8 col-lg-9">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="searchField"
+                            <input type="text" class="form-control" id="filterField"
                                    placeholder="Filter places..." autocomplete="off"
                                    data-bind="value: filterText">
                         </div>
@@ -62,6 +62,7 @@
                    data-bind="text: title,
                    css: { active: $data.title == $root.selected()},
                    click: $root.select">
+                    Placeholder link text
                 </a>
             </div>
         </div>
@@ -73,7 +74,8 @@
     </div>
     <div class="row footer">
         <div class="col-xs-12">
-            Disclaimer: This web application uses information from wikipedia.
+            Disclaimer:
+            This web application uses free content from <a href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a>.
         </div>
     </div>
 </div>

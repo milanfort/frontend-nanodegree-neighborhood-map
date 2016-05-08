@@ -17,7 +17,8 @@ h1 {
 }
 
 .footer {
-    color: grey;
+    color: dimgrey;
+    font-size: smaller;
     padding-top: 10px;
 }
 
