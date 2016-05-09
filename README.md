@@ -6,7 +6,7 @@
 This repository contains a solution to assignment #5 of the Udacity's Front-End Web Developer Nanodegree Programme.
 
 The task was to develop a single page application (SPA) that features a map of a particular neighborhood.
-The application must contain a static data model with a set of places which must be shown on the map using markers
+The application must contain a static data model with a set of places that must be shown on the map using markers
 as well as in a simple list view. The application must support filtering of the list view as well as the markers on the map.
 Additional third-party data about these places must be retrieved asynchronously using Ajax when
 user selects a particular place either on the map or from the list view.
@@ -34,31 +34,29 @@ To run the web application locally, please follow these steps:
     $ npm install -g gulp
     ```
 
-4. Clone this git repository:
+3. Clone this git repository:
     ```
     $ git clone https://github.com/milanfort/frontend-nanodegree-neighborhood-map.git
     ```
 
-5. Change your working directory to _frontend-nanodegree-neighborhood-map_
+4. Change your working directory to _frontend-nanodegree-neighborhood-map_
 
-6. Install dependencies:
+5. Install dependencies:
     ```
     $ npm install
     ```
 
-8. Run `gulp` to deploy the code to _dist_ directory
+6. Optionally, run `gulp lint` to validate JavaScript source files using [JSHint](http://jshint.com/)
 
-9. Optionally, run `gulp lint` to validate JavaScript source files using [JSHint](http://jshint.com/)
+7. Optionally, run `gulp style` to check code style of JavaScript source files using [JSCS](http://jscs.info/)
 
-10. Optionally, run `gulp style` to check code style of JavaScript source files using [JSCS](http://jscs.info/)
+8. Optionally, run `gulp a11y` to verify accessibility of HTML source files using [A11Y Project](http://a11yproject.com/)
 
-11. Optionally, run `gulp a11y` to verify accessibility of HTML source files using [A11Y Project](http://a11yproject.com/)
+9. Optionally, run `gulp test` to run all unit tests using [Mocha](https://mochajs.org/) JavaScript testing framework
 
-12. Optionally, run `gulp test` to run all unit tests using [Mocha](https://mochajs.org/) JavaScript testing framework
+10. Optionally, run `gulp docs` to generate [JSDoc](http://usejsdoc.org/) API Documentation to _docs_ directory
 
-13. Optionally, run `gulp docs` to generate [JSDoc](http://usejsdoc.org/) API Documentation to _docs_ directory
-
-14. Open file `dist/index.html` in your web browser
+11. Run `gulp serve`. The application will open automatically in your default browser
 
 
 ## Disclaimer
