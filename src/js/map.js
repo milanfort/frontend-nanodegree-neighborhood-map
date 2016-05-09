@@ -23,9 +23,11 @@
 
 /*global google */
 
-var _ = require('lodash'),
+var googleMaps = require('google-maps'),
+    _ = require('lodash'),
     logger = require('./logging').getLogger(),
     CENTER_LOCATION = {lat: 52.5167, lng: 13.4}, // Berlin geo-coordinates
+    MAPS_LOAD_TIMEOUT = 3000,
     googleMap = null,
         markers = {},
     infoWindows = [],
@@ -38,40 +40,59 @@ var _ = require('lodash'),
     showAllMarkers,
     hideAllMarkers;
 
+googleMaps.KEY = 'AIzaSyD_nkhrDT6GrZefEUBUofwRBZJGJBgQMdg';
+
 /** Initializes this map module. */
-init = function (model, clickHandler) {
+init = function (model, clickHandler, errorHandler) {
+    var loadTimeout;
+
     logger.info("Initializing google map");
+    googleMaps.load(function (google) {
+        if (typeof google === 'undefined') {
+            errorHandler();
+            return;
+        }
 
-    if (typeof google === 'undefined') {
-        throw new Error('Google Maps are not available');
-    }
+        googleMap = new google.maps.Map(document.getElementById('map'), {
+            zoom: 13,
+            center: CENTER_LOCATION,
+            disableDefaultUI: true, //Disable map controls
+            zoomControl: true,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
 
-    googleMap = new google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
-        center: CENTER_LOCATION,
-        disableDefaultUI: true, //Disable map controls
-        zoomControl: true,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        _(model).forEach(function (item) {
+            var marker;
+
+            logger.debug("Creating marker for item %j", item);
+
+            marker = new google.maps.Marker({
+                position: item.coords,
+                draggable: false,
+                animation: google.maps.Animation.DROP,
+                title: item.title
+            });
+
+            marker.addListener('click', function () {
+                bounce(marker);
+                clickHandler(item);
+            });
+
+            markers[item.title] = marker;
+        });
+
+        showAllMarkers();
     });
 
-    _(model).forEach(function (item) {
-        var marker;
+    loadTimeout = setTimeout(function () {
+        logger.error("Timeout expired - failed to load google maps");
+        errorHandler();
 
-        logger.debug("Creating marker for item %j", item);
+    }, MAPS_LOAD_TIMEOUT);
 
-        marker = new google.maps.Marker({
-            position: item.coords,
-            draggable: false,
-            animation: google.maps.Animation.DROP,
-            title: item.title
-        });
-
-        marker.addListener('click', function () {
-            bounce(marker);
-            clickHandler(item);
-        });
-
-        markers[item.title] = marker;
+    googleMaps.onLoad(function () {
+        logger.info("Google maps loaded successfully");
+        clearTimeout(loadTimeout);
     });
 };
 

@@ -46,19 +46,14 @@ init = function () {
         viewModel.places.push(value);
     });
 
-    try {
-        map.init(model, function (place) {
-            logger.trace("Clicked on marker for '%s'", place.title);
-            select(place);
-        });
-        map.showAllMarkers();
+    map.init(model, function (place) {
+        logger.trace("Clicked on marker for '%s'", place.title);
+        select(place);
 
-        viewModel.error(false);
-
-    } catch (error) {
+    }, function () {
         viewModel.error(true);
-        viewModel.errorMessage(error.message);
-    }
+        viewModel.errorMessage('Google Maps are not available');
+    });
 };
 
 /** Resets the application state. */
@@ -163,7 +158,7 @@ viewModel = module.exports = {
     places: ko.observableArray([]),
 
     /** Currently selected place from the list. */
-    selected:  ko.observable(),
+    selected: ko.observable(),
 
     /** Text from the search box used to filter places. */
     filterText: ko.observable(),
