@@ -23,7 +23,7 @@
 module.exports = Object.freeze({
 
     /** Defines whether logging should be enabled. */
-    DEBUG: true,
+    DEBUG: false,
 
     /**
      * Logging level to use. Only relevant when
