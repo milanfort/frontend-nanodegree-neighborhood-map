@@ -33,6 +33,7 @@ var ko = require('knockout'),
     map = require('./map'),
     init,
     reset,
+    showWikipediaRetrievalError,
     select,
     filter,
     viewModel;
@@ -69,6 +70,17 @@ reset = function () {
 };
 
 /**
+ * Shows an error in the UI about failed Wikipedia content retrieval.
+ *
+ * @param {string} title - The title of the place for which it was not possible
+ * to retrieve description from Wikipedia.
+ */
+showWikipediaRetrievalError = function (title) {
+    viewModel.error(true);
+    viewModel.errorMessage('Could not retrieve data from Wikipedia for entry ' + title);
+};
+
+/**
  * Selects a place on the map, highlights it in the list,
  * retrieves the information about the place from wikipedia,
  * and displays it in an info window.
@@ -77,8 +89,9 @@ reset = function () {
  * @see module:model
  */
 select = function (place) {
-    var WIKIPEDIA_URL =
-        "http://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=true&exsentences=2&titles=";
+    var WIKIPEDIA_BASE_URL = 'http://en.wikipedia.org/w/api.php',
+        WIKIPEDIA_URL_QUERY_STRING =
+            '?action=query&prop=extracts&format=json&exintro=true&exsentences=2&titles=';
 
     logger.debug("Selecting place %j", place);
     viewModel.selected(place.title);
@@ -86,28 +99,37 @@ select = function (place) {
 
     $.ajax({
         type: 'GET',
-        url: WIKIPEDIA_URL + encodeURIComponent(place.title),
+        url: WIKIPEDIA_BASE_URL + WIKIPEDIA_URL_QUERY_STRING + encodeURIComponent(place.title),
         headers: {
             Accept: 'application/json'
         },
         contentType: 'application/json',
         dataType: 'jsonp',
         cache: true,
-        timeout: 500
+        timeout: 1500
 
     }).done(function (data) {
-        var infoText = _.values(data.query.pages)[0].extract;
-        logger.debug("Wikipedia information for entry '%s' retrieved successfully", place.title);
-        viewModel.error(false);
-        viewModel.errorMessage('');
-        map.closeAllInfoWindows();
-        map.displayInfoWindow(place.title, infoText);
+        var infoText;
 
+        if (!_.isUndefined(data.error)) {
+            logger.error("Failed to retrieve wikipedia information for entry '%s': %s",
+                place.title, data.error.info);
+
+            showWikipediaRetrievalError(place.title);
+
+        } else {
+            infoText = _.values(data.query.pages)[0].extract;
+            logger.debug("Wikipedia information for entry '%s' retrieved successfully",
+                place.title);
+            viewModel.error(false);
+            viewModel.errorMessage('');
+            map.closeAllInfoWindows();
+            map.displayInfoWindow(place.title, infoText);
+        }
     }).fail(function () {
         logger.error("Failed to retrieve wikipedia information for entry '%s'", place.title);
 
-        viewModel.error(true);
-        viewModel.errorMessage('Could not retrieve data from Wikipedia for entry ' + place.title);
+        showWikipediaRetrievalError(place.title);
     });
 };
 
