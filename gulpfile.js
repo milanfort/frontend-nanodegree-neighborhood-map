@@ -34,14 +34,14 @@ gulp.task('css', function () {
             'node_modules/bootstrap/dist/css/bootstrap.css',
             srcDir + '/css/*.css'
         ])
-        .pipe(sourcemaps.init())
+        //.pipe(sourcemaps.init())
         .pipe(prefix({
             browsers: ['last 2 versions', '> 2%'],
             cascade: false
         }))
         .pipe(concat(cssFile))
         .pipe(cleanCss())
-        .pipe(sourcemaps.write('../maps'))
+        //.pipe(sourcemaps.write('../maps'))
         .pipe(gulp.dest(destDir + '/css/'))
         .pipe(browserSync.stream());
 });
