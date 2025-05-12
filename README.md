@@ -20,7 +20,7 @@ all modern desktop, tablet, and phone browsers.
 ## Live Version
 
 This solution is deployed through GitHub Pages at the following URL:
-[http://www.milanfort.com/frontend-nanodegree-neighborhood-map/](http://www.milanfort.com/frontend-nanodegree-neighborhood-map/).
+[https://milanfort.github.io/frontend-nanodegree-neighborhood-map/](https://milanfort.github.io/frontend-nanodegree-neighborhood-map/).
 
 
 ## Installation Instructions
